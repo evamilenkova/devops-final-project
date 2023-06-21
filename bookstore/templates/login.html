@@ -1,0 +1,26 @@
+{% extends 'nav.html' %}
+{% block content %}
+
+
+    <div class="container text-light mt-5">
+<form method="POST" class=" w-50 m-auto form-control  rounded shadow bg-light p-5 m-auto text-center">
+        <div class="">
+            <h1 class=" fw-bold text-color" >Login </h1>
+
+  {% csrf_token %}
+                {{form}}
+                <button class="btn text-light btn-lg w-100 fw-bold " style="background-color: #00563FFF" type="submit">
+                    Continue
+                </button>
+
+
+            <p class="text-color">Dont have an account?</p> <h4 class="inline-block" ><a class="inline-block fw-bold text-color"   href="/register/">Sign up here!</a></h4>
+        </div>
+</form>
+    </div>
+
+
+{% endblock %}
+
+
+

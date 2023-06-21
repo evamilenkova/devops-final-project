@@ -1,0 +1,18 @@
+{% extends 'nav.html' %}
+
+{% block content %}
+
+      <div class="container w-75 m-auto">
+        <h1 style="color: #00563FFF" class="w-50 text-center fw-bold text-outline my-3">Add Book</h1>
+        <div class="w-75 m-auto shadow-lg bg-light rounded p-5">
+
+            <form method="POST" action="{% url 'add_book' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit"  class="btn btn-success"> ADD BOOK</button>
+            </form>
+
+        </div>
+      </div>
+
+{% endblock %}

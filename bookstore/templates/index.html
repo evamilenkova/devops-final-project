@@ -1,0 +1,79 @@
+{% extends 'nav.html' %}
+{% block content %}
+<div class="container w-100 align-top">
+
+<div class="row w-100">
+    <div class="col-md-3 d-inline-block mt-3 justify-content-center align-top">
+        <h4 class=" mt-5 ms-5 fw-bold " style="color:#800020FF "><i>filter by</i></h4>
+
+        <div style="background-color: #00563FFF" class="text-light rounded shadow m-4 text-center p-3">
+            <h4 class="mb-3">Authors:</h4>
+            {% for a in authors %}
+
+                <h5 class="mb-3 "><a class="text-decoration-none text-light"  href="{% url 'filter_books' %}?author={{ a.id }}"> {{ a.name }} {{ a.surname }}</a></h5>
+
+            {% endfor %}
+        </div>
+        <div style="background-color: #00563FFF;"  class="text-light  align-items-center justify-content-center rounded shadow-lg m-4 text-center p-3">
+            <h4 class="mb-3">Categories:</h4>
+            {% for c in categories %}
+
+                <h5 class="mb-3">  <a class="text-decoration-none text-light"  href="{% url 'filter_books' %}?category={{ c.id }}">{{ c.name }} </a></h5>
+
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="d-inline-block col-md-9 mt-5">
+       <form action="{% url 'search_books' %}" method="GET" class="row mb-3">
+        <div class="col-6 offset-md-2">
+ <input type="text" name="search_term" class="form-control p-2 search" value="{{ search_term }}" placeholder="Search by title">
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn p-2 text-light" style="background-color: #00563FFF;">Search</button>
+        </div>
+    </form>
+     {% if user.is_authenticated and user.role == 'r' %}
+        <div class="col-3">
+            <a href="{% url 'add_book' %}"> <button type="submit" class="btn btn-lg btn-danger p-3 m-1 ">ADD BOOK</button></a>
+        </div>
+    {% endif %}
+        {% for b in books %}
+            <div class="card d-inline-block shadow-lg m-3 p-2" style="width: 17.5rem;">
+            <div style="height: 4rem" class="align-center text-center" >
+                <h5 class="card-title align-self-center text-center fw-bold m-3">{{ b.title }}</h5>
+                </div>
+                <img src="{{ MEDIA_URL }}{{ b.image.url }}" class="card-img-top" width="100%" height="305rem" alt="...">
+                  <div class="card-body">
+                    <h6>Author: <span>{{ b.author.name }} {{ b.author.surname }}</span></h6>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{% url 'book_details' b.id %}" class="btn text-light  ms-3 mb-3 " style="background-color: #800020FF">Details</a>
+                        </div>
+                <div class="d-inline-block justify-content-end col-6">
+                <h3 class="fw-bold ms-5 d-inline-block w-auto ">${{ b.price }}</h3>
+                </div>
+                       {% if user.is_authenticated and user.role == 'c' %}
+                          <div class="justify-content-end d-flex">
+                          <form method="POST" action="{% url 'add' b.id %}">
+                        {% csrf_token %}
+                       <button class="btn btn-lg text-light" style="background-color: #00563FFF" type="submit" value="add_to_cart" name="action">
+                            <i class="bi bi-cart-fill"></i>  Add to cart
+                        </button>
+                            </form>
+                          </div>
+                     {% endif %}
+
+
+</div>
+            </div>
+
+
+        {% endfor %}
+
+    </div>
+</div>
+</div>
+{% endblock %}

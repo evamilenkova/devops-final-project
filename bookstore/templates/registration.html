@@ -1,0 +1,40 @@
+{% extends 'nav.html' %}
+
+{%  block content %}
+
+    <div class="container m-3 w-50 p-3 m-auto">
+<form method="POST" class=" w-75 m-auto form-control  rounded shadow bg-light p-5 m-auto text-center">
+  {% csrf_token %}
+
+  {% if form.errors %}
+    <div class="errors">
+      <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <div>
+    <label for="{{ form.username.id_for_label }}">Username:</label>
+    {{ form.username }}
+  </div>
+
+  <div>
+    <label for="{{ form.email.id_for_label }}">Email:</label>
+    {{ form.email }}
+  </div>
+
+  <div>
+    <label for="{{ form.password.id_for_label }}">Password:</label>
+    {{ form.password }}
+  </div>
+
+  <button class="btn btn-lg text-light"  style="background-color: #00563FFF"type="submit">Register</button>
+</form>
+
+</div>
+{% endblock %}

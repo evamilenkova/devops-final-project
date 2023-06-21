@@ -1,0 +1,42 @@
+{% extends 'nav.html' %}
+{% block content %}
+
+    <div class="container m-auto mt-4">
+
+    <h1 class="fw-bold" style="color: #00563FFF"> My Favourites</h1>
+
+      {% for b in books %}
+          <div class="card d-inline-block shadow-lg m-3 p-2" style="width: 17.5rem;">
+            <div style="height: 4rem" class="align-center text-center" >
+                <h5 class="card-title align-self-center text-center fw-bold m-3">{{ b.title }}</h5>
+                </div>
+                <img src="{{ MEDIA_URL }}{{ b.image.url }}" class="card-img-top" width="100%" height="305rem" alt="...">
+                  <div class="card-body">
+                    <h6>Author: <span>{{ b.author.name }} {{ b.author.surname }}</span></h6>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{% url 'book_details' b.id %}" class="btn text-light  ms-3 mb-3 " style="background-color: #800020FF">Details</a>
+                        </div>
+                <div class="d-inline-block justify-content-end col-6">
+                <h3 class="fw-bold ms-5 d-inline-block w-auto ">${{ b.price }}</h3>
+                </div>
+                       {% if user.is_authenticated and user.role == 'c' %}
+                          <div class="justify-content-end d-flex">
+                          <form method="POST" action="{% url 'add' b.id %}">
+                        {% csrf_token %}
+                       <button class="btn btn-lg text-light" style="background-color: #00563FFF" type="submit" value="add_to_cart" name="action">
+                            <i class="bi bi-cart-fill"></i>  Add to cart
+                        </button>
+                            </form>
+                          </div>
+                     {% endif %}
+
+
+</div>
+            </div>
+
+        {% endfor %}
+
+</div>
+{% endblock %}

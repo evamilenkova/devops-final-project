@@ -1,0 +1,72 @@
+{% extends 'nav.html' %}
+{% block content %}
+
+    <div class="container ">
+        <div class=" w-100 m-5 bg-light p-5 rounded shadow-lg">
+            <h1 class="m-3 fw-bold" style="color: #00563FFF">My shopping Cart</h1>
+
+            <div class="container">
+                <div class="row  mb-4 text-center">
+                    <div class="col">
+                        <h4>PRODUCT</h4>
+                    </div>
+                    <div class="col">
+                        <h4>PRICE</h4>
+                    </div>
+                    <div class="col">
+                        <h4>QUANTITY</h4>
+                    </div>
+                    <div class="col">
+                        <h4>TOTAL</h4>
+                    </div>
+                    <div class="col">
+                        <h4>REMOVE BOOK</h4>
+                    </div>
+                </div>
+                {% for item in cart_items %}
+                    <div class="row">
+                        <div class="col m-0">
+                            <img src="{{ MEDIA_URL }}{{ item.book.image.url }}" class="card-img-top" width="80%"
+                                 height="80%" alt="...">
+                        </div>
+                        <div class="col align-content-center text-center">
+                            <h3>${{ item.book.price }}</h3>
+                        </div>
+                        <div class="col  text-center">
+                            <h3>{{ item.quantity }}</h3>
+                        </div>
+                        <div class="col  text-center">
+                            <h3>{{ item.total_price }}</h3>
+                        </div>
+                        <div class="col text-center">
+                            <form action="{% url 'remove_from_cart' item.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">X</button>
+                            </form>
+                        </div>
+
+                    </div>
+
+
+                {% endfor %}
+
+            </div>
+            <div>
+                {% if total != 0 %}
+                <div class="text-end">
+                    <h3 class="m-3 fw-bold" style="color: #00563FFF">Total: ${{ total }}</h3>
+                    <a href="/deliveryinfo">
+                        <button class="btn text-light btn-lg px-4 py-3" style="background-color: #00563FFF">
+                            <i class="bi bi-check-circle-fill"></i> PROCEED
+                        </button>
+                    </a>
+                </div>
+
+        {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
