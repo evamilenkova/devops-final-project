@@ -77,7 +77,7 @@ DATABASES = {
         'NAME': 'bookshelf',
         'USER': 'postgres',
         'PASSWORD': 'mazoretka.1D',
-        'HOST': 'localhost',
+        'HOST': 'mydb',
         'PORT': '5432',
     }
 }
