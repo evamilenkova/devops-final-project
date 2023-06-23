@@ -10,12 +10,12 @@
             <h4 class="mb-3">Authors:</h4>
             {% for a in authors %}
 
-                <h5 class="mb-3 "><a class="text-decoration-none text-light"  href="{% url 'filter_books' %}?author={{ a.id }}"> {{ a.name }} {{ a.surname }}</a></h5>
+                <h5 class="mb-4 "><a class="text-decoration-none text-light"  href="{% url 'filter_books' %}?author={{ a.id }}"> {{ a.name }} {{ a.surname }}</a></h5>
 
             {% endfor %}
         </div>
         <div style="background-color: #00563FFF;"  class="text-light  align-items-center justify-content-center rounded shadow-lg m-4 text-center p-3">
-            <h4 class="mb-3">Categories:</h4>
+            <h4 class="mb-4">Categories:</h4>
             {% for c in categories %}
 
                 <h5 class="mb-3">  <a class="text-decoration-none text-light"  href="{% url 'filter_books' %}?category={{ c.id }}">{{ c.name }} </a></h5>
