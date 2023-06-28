@@ -77,7 +77,7 @@ DATABASES = {
         'NAME': 'bookshelf',
         'USER': 'postgres',
 	'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'mydb',
+        'HOST': '10.42.2.54',
         'PORT': '5432',
     }
 }
